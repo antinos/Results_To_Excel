@@ -47,8 +47,7 @@ public void run(String arg) {
 	
 	//Replace spaces with '_' underscores in the results table
 	String[] ColHeadings = Analyzer.getResultsTable().getHeadings();
-	
-	String RA = new String(); 
+	 
 	///Clipboard SysClip = Toolkit.getDefaultToolkit().getSystemClipboard();	//can be used for macro to communicate with plugin and visa versa
 	int ColHedLen = ColHeadings.length;
 	int RTcount = Analyzer.getResultsTable().getCounter();
@@ -59,8 +58,8 @@ public void run(String arg) {
 	ResultsTable rt = Analyzer.getResultsTable();
 	for (int y=0; y<RTcount; y++) {
 		for (int x=0; x<ColHeadings.length; x++) {
-			RA = String.valueOf(rt.getStringValue(ColHeadings[x], y));
-			
+			data_in_1Darray[counter] = String.valueOf(rt.getStringValue(ColHeadings[x], y));
+				counter++;
 			//Below 8 lines... alternate method to get RT data via a macro and the system clipboard
 			///IJ.runMacro("var TempRT = getResultString("+ (char)34 + ColHeadings[x] + (char)34 + ", " + y + ");\nString.copy(TempRT);");
 			///try {
@@ -71,11 +70,9 @@ public void run(String arg) {
 				///e.printStackTrace();
 			///}
 			
-			RA = RA.replaceAll("\\s+", "_");
+			///RA = RA.replaceAll("\\s+", "_");			//was needed to remove spaces before I went with array encapsulation.. sortof forgot to remove it for a while.
 			///data_in_matrix[x][y] = RA;					//data in 2D matrix
 			///data_in_string.add(RA);						//data in string
-			data_in_1Darray[counter] = RA;					//data in 1D Array
-				counter++;
 			///data_in_list.add(RA);						//data in ArrayList
 			}
 		}
